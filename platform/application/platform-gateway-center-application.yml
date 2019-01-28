@@ -1,0 +1,62 @@
+spring:
+    http:
+        encoding:
+            force: true
+            charset: UTF-8
+            enabled: true
+        multipart:
+            enabled: true
+            max-file-size: 100MB
+            max-request-size: 100MB
+    rabbitmq:
+        host: ${rabbitmq.host}
+        port: ${rabbitmq.port}
+        username: ${rabbitmq.username}
+        password: ${rabbitmq.password}
+        virtual-host: ${rabbitmq.virtual-host}
+    redis:
+        sentinel:
+            master: ${spring.redis.sentinel.master}
+            nodes: ${spring.redis.sentinel.nodes}
+        pool:
+            max-idle: ${spring.redis.pool.max-idle}
+            min-idle: ${spring.redis.pool.min-idle}
+            max-active: ${spring.redis.pool.max-active}
+            max-wait: ${spring.redis.pool.max-wait}
+
+eureka:
+    instance:
+        prefer-ip-address: true
+    client:
+        healthcheck:
+            enabled: true
+
+server:
+    tomcat:
+        uri-encoding: UTF-8
+
+ribbon:
+    ReadTimeout: 10000
+    ConnectTimeout: 10000
+
+zuul:
+    ribbon:
+        eager-load:
+            enabled: true
+    AuthorizationFilter:
+        pre:
+            disable: false
+    routes:
+        message-center:
+            path: /message-center/**
+            stripPrefix: true
+            sensitiveHeaders:
+            serviceId: message-center
+        order-center:
+            path: /order-center/**
+            stripPrefix: true
+            sensitiveHeaders:
+            serviceId: order-center
+
+
+

@@ -1,0 +1,78 @@
+spring:
+    profiles:
+        active: default
+    http:
+        encoding:
+            force: true
+            charset: UTF-8
+            enabled: true
+        multipart:
+            enabled: true
+            max-file-size: 100MB
+            max-request-size: 100MB
+
+    datasource:
+        url: ${common.delivery.datasource.url}
+        driver-class-name: ${common.delivery.datasource.driver-class}
+        username: ${common.delivery.datasource.username}
+        password: ${common.delivery.datasource.password}
+        type: ${common.delivery.datasource.type}
+        druid:
+          initial-size: ${common.delivery.datasource.initial-size}
+          min-idle: ${common.delivery.datasource.min-idle}
+          max-active: ${common.delivery.datasource.max-active}
+          max-wait: ${common.delivery.datasource.max-wait}
+          pool-prepared-statements: ${common.delivery.datasource.pool-prepared-statements}
+          max-pool-prepared-statement-per-connection-size: ${common.delivery.datasource.max-pool-prepared-statement-per-connection-size}
+          connection-properties: ${common.delivery.datasource.connection-properties}
+         # filters: ${common.delivery.datasource.filters}
+
+    rabbitmq:
+        host: ${rabbitmq.host}
+        port: ${rabbitmq.port}
+        username: ${rabbitmq.username}
+        password: ${rabbitmq.password}
+        virtual-host: ${rabbitmq.virtual-host}
+    redis:
+        sentinel:
+            master: ${spring.redis.sentinel.master}
+            nodes: ${spring.redis.sentinel.nodes}
+        pool:
+            max-idle: ${spring.redis.pool.max-idle}
+            min-idle: ${spring.redis.pool.min-idle}
+            max-active: ${spring.redis.pool.max-active}
+            max-wait: ${spring.redis.pool.max-wait}
+eureka:
+    client:
+        healthcheck:
+            enabled: true
+
+server:
+    tomcat:
+        uri-encoding: UTF-8
+
+mybatis:
+    mapper-locations: mapper/*.xml
+
+feign:
+    hystrix:
+        enabled: true
+    compression:
+        request:
+            enable: true
+        response:
+            enable: true
+    httpclient:
+        enable: true
+
+hystrix:
+  command:
+    default:
+      execution:
+        isolation:
+          thread:
+            timeoutInMilliseconds: 3000
+
+ribbon:
+  ReadTimeout: 3000
+  ConnectTimeout: 3000
